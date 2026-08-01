@@ -12,9 +12,22 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Health Check
+// 👇 Add this here
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to CivicBrain AI Backend 🚀',
+    health: '/api/health',
+    version: '1.0.0'
+  });
+});
+
+// Existing Health Check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'online', system: 'CivicBrain AI Municipal Engine', timestamp: new Date() });
+  res.json({
+    status: 'online',
+    system: 'CivicBrain AI Municipal Engine',
+    timestamp: new Date()
+  });
 });
 
 // API Routes
