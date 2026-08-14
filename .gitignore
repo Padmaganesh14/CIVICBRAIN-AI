@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+.env.txt
+
+# Build output
+dist/
+build/
+.next/
+.nitro/
+.output/
+.cache/
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Uploads / local data
+uploads/
+tmp/
+temp/
+
+# Credentials
+credentials.json
+service-account.json
+*.pem
+*.key
+
+# Local ngrok
+.ngrok/
