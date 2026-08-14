@@ -13,16 +13,16 @@ export function StatsSection() {
   ];
 
   return (
-    <section className="px-4 py-24 sm:px-6 sm:py-28">
+    <section className="px-3 py-14 sm:px-6 sm:py-24 lg:py-28">
       <SectionHeading eyebrow={t("stats.eyebrow")} title={t("stats.title")} />
-      <div className="mx-auto mt-14 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mx-auto mt-8 sm:mt-14 grid max-w-6xl grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {stats.map((s, i) => (
           <Reveal key={s.key} delay={i * 0.07}>
-            <GlassCard className="h-full p-6 text-center">
-              <p className="font-display text-3xl font-extrabold text-gradient-brand sm:text-4xl">
+            <GlassCard className="h-full p-3.5 sm:p-6 text-center">
+              <p className="font-display text-2xl font-extrabold text-gradient-brand sm:text-3xl lg:text-4xl">
                 <AnimatedCounter value={s.value} decimals={s.decimals} suffix={s.suffix} />
               </p>
-              <p className="mt-2 text-sm font-medium text-muted-foreground text-balance">
+              <p className="mt-1.5 text-xs sm:text-sm font-medium text-muted-foreground text-balance">
                 {t(s.key)}
               </p>
             </GlassCard>

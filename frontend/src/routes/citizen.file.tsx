@@ -266,12 +266,12 @@ function FileGrievance() {
     <AppShell role="citizen">
       <Reveal>
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-2xl font-extrabold text-balance sm:text-4xl">
+          <h1 className="text-xl font-extrabold text-balance sm:text-3xl lg:text-4xl">
             <span className="text-gradient-brand">{t("file.title")}</span>
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">{t("file.subtitle")}</p>
+          <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground">{t("file.subtitle")}</p>
 
-          <ol className="mt-7 flex items-center gap-1.5" aria-label={t("file.step")}>
+          <ol className="mt-5 sm:mt-7 flex items-center gap-1 sm:gap-1.5" aria-label={t("file.step")}>
             {stepKeys.map((k, i) => (
               <li key={k} className="flex-1">
                 <div
@@ -283,16 +283,16 @@ function FileGrievance() {
               </li>
             ))}
           </ol>
-          <p className="mt-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+          <p className="mt-2.5 text-[10px] sm:text-xs font-semibold tracking-wide text-muted-foreground uppercase">
             {t("file.step")} {step + 1} {t("file.of")} {stepKeys.length} · {t(stepKeys[step]!)}
           </p>
 
-          <GlassCard className="mt-5 p-6 sm:p-8">
+          <GlassCard className="mt-4 sm:mt-5 p-4 sm:p-6 md:p-8">
             {/* Step 0: Department */}
             {step === 0 ? (
               <fieldset>
                 <legend className="sr-only">{t("file.s1")}</legend>
-                <ul className="grid gap-3 sm:grid-cols-2">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {departments.map((d) => (
                     <li key={d.id}>
                       <button
@@ -300,18 +300,18 @@ function FileGrievance() {
                         onClick={() => { setDeptId(d.id); setCategory(""); }}
                         aria-pressed={deptId === d.id}
                         className={cn(
-                          "grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-2xl border p-4 text-left transition-all",
+                          "grid w-full grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-2xl border p-3.5 sm:p-4 text-left transition-all",
                           deptId === d.id
                             ? "border-primary bg-primary/8 shadow-[0_0_0_1px_var(--color-primary)]"
                             : "border-border bg-background/50 hover:bg-background/80",
                         )}
                       >
-                        <span className={`grid size-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${d.tint} text-primary`}>
-                          <d.icon className="size-5" aria-hidden="true" />
+                        <span className={`grid size-10 sm:size-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${d.tint} text-primary`}>
+                          <d.icon className="size-4.5 sm:size-5" aria-hidden="true" />
                         </span>
                         <span className="min-w-0">
-                          <span className="block truncate text-sm font-semibold">{t(d.nameKey)}</span>
-                          <span className="block text-xs text-muted-foreground">
+                          <span className="block truncate text-xs sm:text-sm font-semibold">{t(d.nameKey)}</span>
+                          <span className="block text-[11px] text-muted-foreground">
                             {t("dept.avg")}: {d.avgDays} {t("stats.days")}
                           </span>
                         </span>

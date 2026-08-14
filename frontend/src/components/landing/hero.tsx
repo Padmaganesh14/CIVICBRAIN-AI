@@ -64,7 +64,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(60rem_40rem_at_50%_10%,color-mix(in_oklab,var(--color-accent)_18%,transparent),transparent_70%)]" />
       </motion.div>
 
-      <div className="mx-auto flex min-h-[92dvh] max-w-5xl flex-col items-center justify-center px-4 pt-32 pb-24 text-center sm:px-6">
+      <div className="mx-auto flex min-h-[92dvh] max-w-5xl flex-col items-center justify-center px-3 pt-24 pb-20 text-center sm:px-6 sm:pt-32 sm:pb-24">
         {/* Badge & Subtitle wrapper with scroll lift & fade */}
         <motion.div
           style={reduce ? {} : { y: subY, opacity: subOpacity }}
@@ -74,7 +74,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="glass-surface-strong inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold tracking-wide text-primary"
+            className="glass-surface-strong inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-semibold tracking-wide text-primary"
           >
             <Sparkles className="size-3.5" aria-hidden="true" />
             {t("hero.badge")}
@@ -98,7 +98,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 text-4xl leading-[1.05] font-extrabold text-balance sm:text-6xl lg:text-7xl"
+            className="mt-4 sm:mt-6 text-2xl sm:text-5xl lg:text-7xl leading-[1.1] font-extrabold text-balance"
           >
             <span className="text-gradient-brand">{t("hero.title")}</span>
           </motion.h1>
@@ -113,7 +113,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 max-w-2xl text-base text-pretty text-muted-foreground sm:text-lg"
+            className="mt-4 sm:mt-6 max-w-2xl text-xs sm:text-base md:text-lg text-pretty text-muted-foreground"
           >
             {t("hero.subtitle")}
           </motion.p>
@@ -122,13 +122,13 @@ export function Hero() {
         {/* CTA Buttons */}
         <motion.div
           style={reduce ? {} : { y: ctaY, opacity: ctaOpacity }}
-          className="will-change-transform"
+          className="will-change-transform w-full sm:w-auto"
         >
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10 flex flex-col items-center gap-3 sm:flex-row"
+            className="mt-6 sm:mt-10 flex flex-col items-center gap-3 sm:flex-row w-full sm:w-auto"
           >
             <Link
               to="/login"

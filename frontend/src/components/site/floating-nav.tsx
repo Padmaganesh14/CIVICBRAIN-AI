@@ -34,25 +34,25 @@ export function FloatingNav() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-5">
+    <header className="fixed inset-x-0 top-0 z-50 px-2 pt-2 sm:px-6 sm:pt-5">
       <motion.nav
         aria-label="Primary"
         style={reduce ? {} : { backdropFilter: navBlur, boxShadow: navShadow }}
         className={cn(
-          "mx-auto flex max-w-6xl items-center gap-3 rounded-full px-3 py-2 transition-colors duration-500 sm:px-4",
+          "mx-auto flex max-w-6xl items-center gap-1.5 sm:gap-3 rounded-full px-2.5 py-1.5 transition-colors duration-500 sm:px-4 sm:py-2",
           scrolled ? "glass-surface-strong" : "glass-surface",
         )}
       >
         <Link
           to="/"
-          className="flex min-w-0 items-center gap-3 rounded-full py-1 pr-3 pl-1.5"
+          className="flex min-w-0 items-center gap-2 sm:gap-3 rounded-full py-1 pr-2 pl-1 sm:pr-3 sm:pl-1.5"
           aria-label={`${t("brand.gov")} — GrievancePilot AI`}
         >
-          <div className="flex items-center justify-center h-10 px-2.5 rounded-xl bg-white/10 border border-white/20 shadow-sm shrink-0">
+          <div className="flex items-center justify-center h-8 sm:h-10 px-2 sm:px-2.5 rounded-xl bg-white/10 border border-white/20 shadow-xs shrink-0">
             <img
               src="/image.png"
               alt="GrievancePilot AI Logo"
-              className="h-7 w-auto max-w-[130px] object-contain drop-shadow-sm"
+              className="h-5 sm:h-7 w-auto max-w-[100px] sm:max-w-[130px] object-contain drop-shadow-xs"
             />
           </div>
           <span className="hidden min-w-0 leading-tight sm:block">
@@ -90,15 +90,15 @@ export function FloatingNav() {
           </Link>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
           <GlassButton
             variant="ghost"
             size="sm"
             onClick={toggle}
             aria-label={t("nav.lang")}
-            className="gap-1.5 px-3"
+            className="gap-1 px-2.5 sm:px-3 text-xs sm:text-sm h-8 sm:h-9"
           >
-            <Languages className="size-4" aria-hidden="true" />
+            <Languages className="size-3.5 sm:size-4" aria-hidden="true" />
             <span className="font-semibold">{lang === "en" ? "தமிழ்" : "EN"}</span>
           </GlassButton>
           <Link
@@ -116,12 +116,12 @@ export function FloatingNav() {
           <GlassButton
             variant="ghost"
             size="icon"
-            className="lg:hidden"
+            className="lg:hidden size-8 sm:size-9"
             aria-expanded={open}
             aria-label={open ? t("nav.close") : t("nav.menu")}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            {open ? <X className="size-4.5 sm:size-5" /> : <Menu className="size-4.5 sm:size-5" />}
           </GlassButton>
         </div>
       </motion.nav>

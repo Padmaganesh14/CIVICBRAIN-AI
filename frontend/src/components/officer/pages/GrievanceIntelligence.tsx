@@ -65,7 +65,7 @@ export default function GrievanceIntelligence({ data, navigate }: Props) {
   };
 
   return (
-    <div className="p-6 space-y-6 max-w-screen-xl">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-screen-xl min-w-0">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -221,7 +221,7 @@ export default function GrievanceIntelligence({ data, navigate }: Props) {
                       {selectedComplaint.attachments.map((att: any, idx: number) => (
                         <a
                           key={idx}
-                          href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${att.url}`}
+                          href={`${import.meta.env["VITE_API_URL"] || 'http://localhost:5000'}${att.url}`}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border bg-white hover:bg-slate-50 text-xs font-semibold text-indigo-600 transition-colors"

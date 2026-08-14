@@ -34,10 +34,10 @@ export function HowItWorks() {
   const glow = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
 
   return (
-    <section id="how-it-works" className="scroll-mt-28 px-4 py-24 sm:px-6 sm:py-32">
+    <section id="how-it-works" className="scroll-mt-28 px-3 py-14 sm:px-6 sm:py-24 lg:py-32">
       <SectionHeading eyebrow={t("how.eyebrow")} title={t("how.title")} subtitle={t("how.subtitle")} />
 
-      <div ref={ref} className="relative mx-auto mt-16 max-w-4xl">
+      <div ref={ref} className="relative mx-auto mt-10 sm:mt-16 max-w-4xl">
         {/* connecting line */}
         <div
           aria-hidden="true"
@@ -49,17 +49,17 @@ export function HowItWorks() {
           />
         </div>
 
-        <ol className="space-y-8 sm:space-y-14">
+        <ol className="space-y-6 sm:space-y-14">
           {steps.map(({ n, Icon }, i) => (
             <li
               key={n}
               className={
-                "relative flex gap-5 sm:grid sm:grid-cols-2 sm:items-center sm:gap-10 " +
+                "relative flex pl-11 sm:pl-0 sm:grid sm:grid-cols-2 sm:items-center sm:gap-10 " +
                 (i % 2 === 1 ? "sm:[&>*:first-child]:order-2" : "")
               }
             >
               <Reveal delay={0.05} className={i % 2 === 1 ? "sm:col-start-2" : ""}>
-                <GlassCard className="p-6 sm:p-7">
+                <GlassCard className="p-4 sm:p-7">
                   <div className="flex items-center gap-3">
                     <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20 text-primary shadow-[inset_0_1px_0_0_color-mix(in_oklab,white_60%,transparent)]">
                       <Icon className="size-5.5" aria-hidden="true" />

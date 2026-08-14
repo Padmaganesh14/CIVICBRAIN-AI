@@ -148,7 +148,7 @@ export default function FundingEligibility({ data, navigate }: Props) {
   const isRejected = selectedComplaint?.status === 'SCHEME_REJECTED' || selectedComplaint?.approvalStatus === 'REJECTED';
 
   return (
-    <div className="p-6 space-y-6 max-w-screen-xl relative">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-screen-xl min-w-0 relative">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>

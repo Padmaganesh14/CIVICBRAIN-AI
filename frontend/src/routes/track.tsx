@@ -179,62 +179,62 @@ function TrackPage() {
   return (
     <div className="aurora-bg min-h-dvh">
       <FloatingNav />
-      <main className="mx-auto max-w-4xl px-4 pt-32 pb-16 sm:px-6 sm:pt-40">
+      <main className="mx-auto max-w-4xl px-3 pt-24 pb-16 sm:px-6 sm:pt-36">
         <Reveal>
           <div className="text-center">
-            <h1 className="text-3xl font-extrabold text-balance sm:text-5xl">
+            <h1 className="text-2xl font-extrabold text-balance sm:text-4xl lg:text-5xl">
               <span className="text-gradient-brand">{t("track.title")}</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-pretty text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-xl text-xs sm:text-sm text-pretty text-muted-foreground">
               {t("track.subtitle")}
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <GlassCard className="mt-10 p-6 sm:p-8">
+          <GlassCard className="mt-6 p-4 sm:p-6 md:p-8">
             <Tabs value={mode} onValueChange={(v) => { setMode(v as Mode); setErrorMsg(null); }}>
               <TabsList className="grid w-full grid-cols-3 rounded-full bg-muted/70 p-1">
-                <TabsTrigger value="id" className="rounded-full text-xs sm:text-sm">
+                <TabsTrigger value="id" className="rounded-full px-1 py-1.5 text-[11px] sm:text-xs md:text-sm truncate">
                   {t("track.by.id")}
                 </TabsTrigger>
-                <TabsTrigger value="tracking" className="rounded-full text-xs sm:text-sm">
+                <TabsTrigger value="tracking" className="rounded-full px-1 py-1.5 text-[11px] sm:text-xs md:text-sm truncate">
                   {t("track.by.tracking")}
                 </TabsTrigger>
-                <TabsTrigger value="mobile" className="rounded-full text-xs sm:text-sm">
+                <TabsTrigger value="mobile" className="rounded-full px-1 py-1.5 text-[11px] sm:text-xs md:text-sm truncate">
                   {t("track.by.mobile")}
                 </TabsTrigger>
               </TabsList>
             </Tabs>
 
-            <form onSubmit={onSubmit} className="mt-6">
-              <Label htmlFor="track-input" className="text-sm font-medium">
+            <form onSubmit={onSubmit} className="mt-5 sm:mt-6">
+              <Label htmlFor="track-input" className="text-xs sm:text-sm font-medium">
                 {t(`track.by.${mode}`)}
               </Label>
-              <div className="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+              <div className="mt-2 grid gap-3.5 sm:grid-cols-[minmax(0,1fr)_auto]">
                 <Input
                   id="track-input"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={t(`track.placeholder.${mode}`)}
                   inputMode={mode === "mobile" ? "tel" : "text"}
-                  className="h-12 rounded-2xl bg-background/70"
+                  className="h-11 sm:h-12 rounded-2xl bg-background/70 text-xs sm:text-sm"
                 />
-                <GlassButton type="submit" size="lg" className="rounded-2xl" disabled={loading}>
+                <GlassButton type="submit" size="lg" className="rounded-2xl h-11 sm:h-12 text-xs sm:text-sm" disabled={loading}>
                   {loading ? (
                     <>
-                      <Loader2 className="size-4.5 animate-spin" aria-hidden="true" />
+                      <Loader2 className="size-4 animate-spin" aria-hidden="true" />
                       🔄 Tracking...
                     </>
                   ) : (
                     <>
-                      <Search className="size-4.5" aria-hidden="true" />
+                      <Search className="size-4" aria-hidden="true" />
                       {t("track.button")}
                     </>
                   )}
                 </GlassButton>
               </div>
-              <p className="mt-3 text-xs text-muted-foreground">{t("track.hint")}</p>
+              <p className="mt-2.5 text-xs text-muted-foreground">{t("track.hint")}</p>
             </form>
           </GlassCard>
         </Reveal>
@@ -250,26 +250,28 @@ function TrackPage() {
 
         {result ? (
           <Reveal>
-            <GlassCard className="mt-6 p-6 sm:p-8">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
+            <GlassCard className="mt-6 p-4 sm:p-6 md:p-8">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="font-mono text-xs text-muted-foreground">{result.id}</p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-mono text-xs text-muted-foreground break-all">{result.id}</p>
                     {rawBackendData?.status === "AI_PROCESSING_FAILED" && (
                       <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-600">
                         ⚠️ Manual Review Required
                       </span>
                     )}
                   </div>
-                  <h2 className="mt-1 text-lg font-bold text-balance sm:text-xl">{result.title}</h2>
+                  <h2 className="mt-1 text-base font-bold text-balance sm:text-xl">{result.title}</h2>
                 </div>
-                <PriorityBadge
-                  level={result.priority}
-                  label={t(`common.priority.${result.priority}`)}
-                />
+                <div className="shrink-0 self-start sm:self-auto">
+                  <PriorityBadge
+                    level={result.priority}
+                    label={t(`common.priority.${result.priority}`)}
+                  />
+                </div>
               </div>
 
-              <dl className="mt-6 grid gap-3 sm:grid-cols-2">
+              <dl className="mt-5 sm:mt-6 grid gap-2.5 sm:grid-cols-2">
                 <InfoRow
                   icon={<Building2 className="size-4" />}
                   label={t("track.dept")}
@@ -292,11 +294,11 @@ function TrackPage() {
                 />
               </dl>
 
-              <div className="mt-8 rounded-3xl bg-muted/50 p-5 sm:p-6">
-                <div className="flex items-center justify-between mb-5">
-                  <h3 className="text-sm font-semibold">{t("track.status")}</h3>
+              <div className="mt-6 sm:mt-8 rounded-3xl bg-muted/50 p-4 sm:p-6">
+                <div className="flex items-center justify-between gap-2 mb-4 sm:mb-5">
+                  <h3 className="text-xs sm:text-sm font-semibold">{t("track.status")}</h3>
                   {rawBackendData && (
-                    <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 bg-emerald-500/10 px-2.5 py-1 rounded-full">
+                    <span className="text-[10px] sm:text-[11px] font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 bg-emerald-500/10 px-2 sm:px-2.5 py-1 rounded-full">
                       <span className="relative flex size-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full size-2 bg-emerald-500"></span>

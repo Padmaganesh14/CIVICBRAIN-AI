@@ -21,9 +21,9 @@ export function SiteFooter() {
   const { t } = useI18n();
 
   return (
-    <footer className="relative mt-24 px-4 pb-10 sm:px-6">
-      <div className="glass-surface mx-auto max-w-6xl rounded-4xl p-8 sm:p-12">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative mt-16 sm:mt-24 px-3 pb-8 sm:px-6 sm:pb-10">
+      <div className="glass-surface mx-auto max-w-6xl rounded-3xl sm:rounded-4xl p-5 sm:p-8 lg:p-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
           <div>
             <div className="flex items-center gap-3">
               <img

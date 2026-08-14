@@ -14,12 +14,12 @@ export function WhyPlatform() {
   const { t } = useI18n();
 
   return (
-    <section className="px-4 py-24 sm:px-6 sm:py-28">
+    <section className="px-3 py-14 sm:px-6 sm:py-24 lg:py-28">
       <SectionHeading eyebrow={t("why.eyebrow")} title={t("why.title")} />
-      <div className="mx-auto mt-14 grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto mt-8 sm:mt-14 grid max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {cards.map(({ n, Icon, tint }, i) => (
           <Reveal key={n} delay={i * 0.08}>
-            <GlassCard className="glow-ring h-full p-7">
+            <GlassCard className="glow-ring h-full p-4.5 sm:p-7">
               <span
                 className={`grid size-14 place-items-center rounded-3xl bg-gradient-to-br ${tint} text-primary shadow-[inset_0_1px_0_0_color-mix(in_oklab,white_70%,transparent)]`}
               >

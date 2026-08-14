@@ -14,15 +14,15 @@ export function Testimonials() {
   const { t } = useI18n();
 
   return (
-    <section className="px-4 py-24 sm:px-6 sm:py-28">
+    <section className="px-3 py-14 sm:px-6 sm:py-24 lg:py-28">
       <SectionHeading eyebrow={t("testimonials.eyebrow")} title={t("testimonials.title")} />
-      <ul className="mx-auto mt-14 grid max-w-6xl gap-5 sm:grid-cols-2">
+      <ul className="mx-auto mt-8 sm:mt-14 grid max-w-6xl grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         {people.map((p, i) => {
           const name = t(`t${p.n}.name`);
           return (
             <li key={p.n}>
               <Reveal delay={(i % 2) * 0.08}>
-                <GlassCard className="glow-ring h-full p-7">
+                <GlassCard className="glow-ring h-full p-4.5 sm:p-7">
                   <Quote className="size-7 text-primary/40" aria-hidden="true" />
                   <p className="mt-4 text-base leading-relaxed text-pretty">
                     “{t(`t${p.n}.quote`)}”

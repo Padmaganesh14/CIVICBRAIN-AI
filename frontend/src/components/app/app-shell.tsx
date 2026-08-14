@@ -82,27 +82,27 @@ export function AppShell({
 
   return (
     <div className="aurora-bg min-h-dvh">
-      <header className="sticky top-0 z-40 px-3 pt-3 sm:px-6 sm:pt-5">
-        <div className="glass-surface-strong mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-full px-3 py-2 sm:px-4">
-          <Link to="/" className="flex min-w-0 items-center gap-3">
-            <div className="flex items-center justify-center h-10 px-2.5 rounded-xl bg-white/10 border border-white/20 shadow-sm shrink-0">
+      <header className="sticky top-0 z-40 px-2 pt-2 sm:px-6 sm:pt-5">
+        <div className="glass-surface-strong mx-auto flex max-w-7xl items-center justify-between gap-2 rounded-full px-2.5 py-1.5 sm:px-4 sm:py-2">
+          <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <div className="flex items-center justify-center h-8 sm:h-10 px-2 sm:px-2.5 rounded-xl bg-white/10 border border-white/20 shadow-xs shrink-0">
               <img
                 src="/image.png"
                 alt="GrievancePilot AI Logo"
-                className="h-7 w-auto max-w-[130px] object-contain drop-shadow-sm"
+                className="h-5 sm:h-7 w-auto max-w-[100px] sm:max-w-[130px] object-contain drop-shadow-xs"
               />
             </div>
-            <span className="min-w-0 leading-tight">
+            <span className="hidden min-w-0 leading-tight xs:block">
               <span className="block truncate text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
                 {t("brand.gov")}
               </span>
-              <span className="block truncate font-display text-sm font-bold text-gradient-brand">
+              <span className="block truncate font-display text-xs sm:text-sm font-bold text-gradient-brand">
                 GrievancePilot AI
               </span>
             </span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {/* User info pill */}
             <div className="hidden items-center gap-2 rounded-full bg-background/55 px-3 py-1.5 sm:flex">
               <span
@@ -110,7 +110,7 @@ export function AppShell({
                   user.role === "officer" ? "bg-accent" : "bg-secondary"
                 }`}
               />
-              <span className="max-w-[140px] truncate text-[11px] font-semibold">
+              <span className="max-w-[120px] md:max-w-[140px] truncate text-[11px] font-semibold">
                 {user.name}
               </span>
               {user.department && (
@@ -120,8 +120,8 @@ export function AppShell({
               )}
             </div>
 
-            <GlassButton variant="ghost" size="sm" onClick={toggle} aria-label={t("nav.lang")}>
-              <Languages className="size-4" aria-hidden="true" />
+            <GlassButton variant="ghost" size="sm" onClick={toggle} aria-label={t("nav.lang")} className="px-2.5 text-xs h-8 sm:h-9">
+              <Languages className="size-3.5 sm:size-4" aria-hidden="true" />
               <span className="font-semibold">{lang === "en" ? "தமிழ்" : "EN"}</span>
             </GlassButton>
             <NotificationCenter />
@@ -129,6 +129,7 @@ export function AppShell({
             <GlassButton
               variant="glass"
               size="icon"
+              className="size-8 sm:size-9"
               aria-label={t("dash.logout")}
               disabled={loggingOut}
               onClick={handleLogout}
@@ -136,14 +137,14 @@ export function AppShell({
               {loggingOut ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
-                <LogOut className="size-4.5" aria-hidden="true" />
+                <LogOut className="size-4 sm:size-4.5" aria-hidden="true" />
               )}
             </GlassButton>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 pt-8 pb-20 sm:px-6">{children}</main>
+      <main className="mx-auto max-w-7xl px-3 pt-6 pb-16 sm:px-6 sm:pt-8 sm:pb-20">{children}</main>
     </div>
   );
 }

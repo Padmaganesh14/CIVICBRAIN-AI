@@ -239,6 +239,7 @@ export function OfficerPortalShell() {
 
   const [page, setPage] = useState<Page>(getInitialPage)
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [notifOpen, setNotifOpen] = useState(false)
   const [profileMenuOpen, setProfileMenuOpen] = useState(false)
   const [data, setData] = useState<OfficerWorkspaceData | null>(null)
@@ -305,6 +306,7 @@ export function OfficerPortalShell() {
 
   const navigateTab = (p: Page) => {
     setPage(p)
+    setMobileMenuOpen(false)
     const targetPath = pageToPathMap[p]
     if (targetPath && typeof window !== 'undefined' && window.location.pathname !== targetPath) {
       window.history.pushState({}, '', targetPath)
@@ -317,12 +319,22 @@ export function OfficerPortalShell() {
   const initials = getInitials(displayName);
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ fontFamily: "'Inter', sans-serif", background: '#F8FAFC' }}>
+    <div className="flex h-screen overflow-hidden relative" style={{ fontFamily: "'Inter', sans-serif", background: '#F8FAFC' }}>
+      {/* Mobile Sidebar Backdrop Overlay */}
+      {mobileMenuOpen && (
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-40 md:hidden animate-in fade-in"
+        />
+      )}
+
       {/* Sidebar */}
       <aside
-        className="flex flex-col border-r transition-all duration-300 relative"
+        className={`flex flex-col border-r transition-all duration-300 z-50 md:z-auto ${
+          mobileMenuOpen ? 'fixed inset-y-0 left-0 shadow-2xl w-64' : 'hidden md:flex relative'
+        }`}
         style={{
-          width: sidebarOpen ? '240px' : '64px',
+          width: mobileMenuOpen ? '256px' : sidebarOpen ? '240px' : '64px',
           background: '#0F172A',
           borderColor: 'rgba(255,255,255,0.06)',
           flexShrink: 0,
@@ -338,30 +350,41 @@ export function OfficerPortalShell() {
               <path d="M8 1.5l1.2 3.8H13l-3 2.2 1.1 3.5L8 8.9l-3.1 2.1L6 7.5 3 5.3h3.8L8 1.5z" />
             </svg>
           </div>
-          {sidebarOpen && (
+          {(sidebarOpen || mobileMenuOpen) && (
             <div className="min-w-0 flex-1">
               <div className="text-white font-semibold text-sm leading-tight truncate">CivicFund AI</div>
               <div className="text-xs truncate" style={{ color: '#94A3B8' }}>{displayDept}</div>
             </div>
           )}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="ml-auto text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
-            style={{ marginLeft: sidebarOpen ? 'auto' : undefined }}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-              {sidebarOpen
-                ? <path d="M10 3L6 8l4 5" strokeLinecap="round" strokeLinejoin="round" />
-                : <path d="M6 3l4 5-4 5" strokeLinecap="round" strokeLinejoin="round" />}
-            </svg>
-          </button>
+          {mobileMenuOpen ? (
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="ml-auto text-slate-400 hover:text-white transition-colors cursor-pointer p-1"
+            >
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 4l8 8M12 4l-8 8" />
+              </svg>
+            </button>
+          ) : (
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="ml-auto text-slate-500 hover:text-slate-300 transition-colors cursor-pointer hidden md:block"
+              style={{ marginLeft: sidebarOpen ? 'auto' : undefined }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                {sidebarOpen
+                  ? <path d="M10 3L6 8l4 5" strokeLinecap="round" strokeLinejoin="round" />
+                  : <path d="M6 3l4 5-4 5" strokeLinecap="round" strokeLinejoin="round" />}
+              </svg>
+            </button>
+          )}
         </div>
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-4 px-2 space-y-5">
           {navGroups.map((group) => (
             <div key={group.label}>
-              {sidebarOpen && (
+              {(sidebarOpen || mobileMenuOpen) && (
                 <div className="px-2 mb-1.5 text-[10px] font-bold tracking-widest uppercase" style={{ color: '#475569' }}>
                   {group.label}
                 </div>
@@ -384,15 +407,15 @@ export function OfficerPortalShell() {
                       onMouseLeave={(e) => {
                         if (!active) (e.currentTarget as HTMLButtonElement).style.color = '#64748B'
                       }}
-                      title={!sidebarOpen ? item.label : undefined}
+                      title={!sidebarOpen && !mobileMenuOpen ? item.label : undefined}
                     >
                       <span className="flex-shrink-0 flex items-center justify-center" style={{ width: 20 }}>
                         <item.icon />
                       </span>
-                      {sidebarOpen && (
+                      {(sidebarOpen || mobileMenuOpen) && (
                         <span className="text-xs font-semibold truncate">{item.label}</span>
                       )}
-                      {sidebarOpen && active && (
+                      {(sidebarOpen || mobileMenuOpen) && active && (
                         <span className="ml-auto w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#818CF8' }} />
                       )}
                     </button>
@@ -405,7 +428,7 @@ export function OfficerPortalShell() {
 
         {/* User Footer with Explicit Sign Out Button & Menu */}
         <div className="p-3 border-t relative" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-          {sidebarOpen ? (
+          {(sidebarOpen || mobileMenuOpen) ? (
             <div className="flex flex-col gap-2">
               <div
                 onClick={() => setProfileMenuOpen(!profileMenuOpen)}
@@ -432,12 +455,6 @@ export function OfficerPortalShell() {
                   color: '#F87171',
                   border: '1px solid rgba(239, 68, 68, 0.2)',
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(239, 68, 68, 0.22)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(239, 68, 68, 0.12)';
-                }}
               >
                 <LogOutIcon />
                 <span>Sign Out</span>
@@ -452,62 +469,53 @@ export function OfficerPortalShell() {
               <LogOutIcon />
             </button>
           )}
-
-          {/* Profile Dropdown Popover */}
-          {profileMenuOpen && sidebarOpen && (
-            <div
-              className="absolute bottom-16 left-3 right-3 rounded-2xl border shadow-2xl z-50 p-3 text-xs space-y-2.5 animate-in fade-in"
-              style={{ background: '#1E293B', borderColor: 'rgba(255,255,255,0.1)', color: '#E2E8F0' }}
-            >
-              <div className="border-b pb-2" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-                <div className="font-bold text-white text-xs">{displayName}</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">{displayDept}</div>
-                <div className="text-[10px] text-indigo-400 mt-1 truncate">{municipality}</div>
-              </div>
-              <button
-                onClick={handleSignOut}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-400 hover:bg-rose-500/15 cursor-pointer transition-colors"
-              >
-                <LogOutIcon />
-                <span>Confirm Sign Out</span>
-              </button>
-            </div>
-          )}
         </div>
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Header */}
         <header
-          className="flex items-center gap-4 px-6 py-3 border-b"
+          className="flex items-center gap-2 sm:gap-4 px-2.5 sm:px-6 py-2.5 sm:py-3 border-b"
           style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)', borderColor: '#E2E8F0', flexShrink: 0 }}
         >
-          <div className="flex-1">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border max-w-xs" style={{ background: '#F8FAFC', borderColor: '#E2E8F0' }}>
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#94A3B8" strokeWidth="1.5">
+          {/* Mobile Hamburger Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="md:hidden flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl border bg-white text-slate-600 hover:bg-slate-50 transition-colors shrink-0 cursor-pointer"
+            style={{ borderColor: '#E2E8F0' }}
+            aria-label="Open Mobile Navigation"
+          >
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M2.5 4h11M2.5 8h11M2.5 12h11" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border max-w-[130px] sm:max-w-xs" style={{ background: '#F8FAFC', borderColor: '#E2E8F0' }}>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#94A3B8" strokeWidth="1.5" className="shrink-0">
                 <circle cx="7" cy="7" r="4" /><path d="M12 12L10 10" strokeLinecap="round" />
               </svg>
               <input
                 type="text"
-                placeholder="Search workspace, grievances…"
-                className="bg-transparent text-xs outline-none w-full"
+                placeholder="Search…"
+                className="bg-transparent text-xs outline-none w-full min-w-0"
                 style={{ color: '#475569' }}
               />
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* AI Status */}
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full" style={{ background: '#EEF2FF' }}>
+            <div className="hidden xs:flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: '#EEF2FF' }}>
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#4F46E5' }} />
-              <span className="text-xs font-semibold" style={{ color: '#4F46E5' }}>AI Active</span>
+              <span className="text-[11px] sm:text-xs font-semibold" style={{ color: '#4F46E5' }}>AI Active</span>
             </div>
 
             {/* Notifications */}
             <div className="relative">
               <button
                 onClick={() => setNotifOpen(!notifOpen)}
-                className="relative flex items-center justify-center w-9 h-9 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
+                className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
                 style={{ color: '#475569' }}
               >
                 <BellIcon />
@@ -518,7 +526,7 @@ export function OfficerPortalShell() {
               </button>
               {notifOpen && (
                 <div
-                  className="absolute right-0 top-11 w-80 rounded-2xl border shadow-2xl z-50 overflow-hidden"
+                  className="absolute right-0 top-11 w-72 sm:w-80 rounded-2xl border shadow-2xl z-50 overflow-hidden"
                   style={{ background: 'white', borderColor: '#E2E8F0' }}
                 >
                   <div className="px-4 py-3 border-b flex items-center justify-between" style={{ borderColor: '#E2E8F0' }}>
@@ -541,28 +549,28 @@ export function OfficerPortalShell() {
             <div className="relative">
               <button
                 onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl hover:bg-slate-100 cursor-pointer transition-colors"
+                className="flex items-center gap-1.5 sm:gap-2 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-xl hover:bg-slate-100 cursor-pointer transition-colors"
               >
                 <div
-                  className="flex items-center justify-center rounded-full text-white text-xs font-bold"
+                  className="flex items-center justify-center rounded-full text-white text-xs font-bold shrink-0"
                   style={{ width: 28, height: 28, background: 'linear-gradient(135deg, #4F46E5, #7C3AED)' }}
                 >
                   {initials}
                 </div>
-                <div className="text-left">
-                  <div className="text-xs font-bold leading-tight text-slate-900">{displayName}</div>
-                  <div className="text-[10px] leading-tight text-slate-400">{displayDept}</div>
+                <div className="text-left hidden sm:block">
+                  <div className="text-xs font-bold leading-tight text-slate-900 truncate max-w-[120px]">{displayName}</div>
+                  <div className="text-[10px] leading-tight text-slate-400 truncate max-w-[120px]">{displayDept}</div>
                 </div>
               </button>
 
               {profileMenuOpen && (
                 <div
-                  className="absolute right-0 top-11 w-56 rounded-2xl border shadow-2xl z-50 p-2 text-xs space-y-1"
+                  className="absolute right-0 top-11 w-52 sm:w-56 rounded-2xl border shadow-2xl z-50 p-2 text-xs space-y-1"
                   style={{ background: 'white', borderColor: '#E2E8F0' }}
                 >
                   <div className="px-3 py-2 border-b" style={{ borderColor: '#F1F5F9' }}>
-                    <div className="font-bold text-slate-900">{displayName}</div>
-                    <div className="text-[10px] text-slate-500">{displayDept}</div>
+                    <div className="font-bold text-slate-900 truncate">{displayName}</div>
+                    <div className="text-[10px] text-slate-500 truncate">{displayDept}</div>
                   </div>
                   <button
                     onClick={handleSignOut}
@@ -604,7 +612,7 @@ export function OfficerPortalShell() {
               </div>
             </div>
           ) : (
-            <div key={page} className="h-full">
+            <div key={page} className="h-full max-w-screen-2xl mx-auto">
               {page === 'dashboard' && <Dashboard data={data} navigate={navigateTab} />}
               {page === 'workforce' && <WorkforceManagement data={data} navigate={navigateTab} />}
               {page === 'funding-discovery' && <FundingDiscovery data={data} navigate={navigateTab} />}

@@ -138,7 +138,7 @@ export default function AIAssistant({ data, navigate }: Props) {
   }
 
   return (
-    <div className="p-6 space-y-6 max-w-screen-xl flex flex-col h-[calc(100vh-80px)]">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-screen-xl min-w-0 flex flex-col h-[calc(100vh-70px)]">
       {/* Header & Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>

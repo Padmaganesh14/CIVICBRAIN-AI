@@ -325,7 +325,7 @@ export default function Reports({ data, navigate }: Props) {
   }
 
   return (
-    <div className="p-6 space-y-6 max-w-screen-xl">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-screen-xl min-w-0">
       <div>
         <h1 className="text-2xl font-bold" style={{ color: '#0F172A' }}>Executive Report Generator</h1>
         <p className="mt-1 text-sm" style={{ color: '#64748B' }}>

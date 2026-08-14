@@ -296,17 +296,17 @@ function ComplaintReview() {
           {t("officer.dash.title")}
         </Link>
 
-        <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4">
+        <div className="mt-4 flex flex-col sm:flex-row sm:items-start justify-between gap-3 min-w-0">
           <div className="min-w-0">
             <p className="font-mono text-xs text-muted-foreground">{complaint.complaintId}</p>
-            <h1 className="mt-1 text-2xl font-extrabold text-balance sm:text-3xl">
+            <h1 className="mt-1 text-xl font-extrabold text-balance sm:text-3xl">
               {complaint.title}
             </h1>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground">
               {complaint.department} · {complaint.district}
             </p>
           </div>
-          <span className="rounded-full bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary">
+          <span className="self-start sm:self-auto shrink-0 rounded-full bg-primary/10 px-3 py-1.5 text-xs sm:text-sm font-semibold text-primary">
             {statusLabel(complaint.status)}
           </span>
         </div>

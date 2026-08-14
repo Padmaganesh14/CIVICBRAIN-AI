@@ -147,23 +147,23 @@ function CitizenDashboard() {
     <AppShell role="citizen">
       {/* Welcome Card */}
       <Reveal>
-        <GlassCard className="p-7 sm:p-9">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <GlassCard className="p-4 sm:p-7 md:p-9">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="min-w-0">
-              <p className="text-sm font-medium text-muted-foreground">{t("dash.welcome")}</p>
-              <h1 className="mt-1 text-2xl font-extrabold text-balance sm:text-4xl">
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">{t("dash.welcome")}</p>
+              <h1 className="mt-1 text-xl font-extrabold text-balance sm:text-3xl lg:text-4xl">
                 <span className="text-gradient-brand">{user?.name ?? "Citizen"}</span>
               </h1>
-              <p className="mt-1 text-sm text-muted-foreground">@{user?.username}</p>
+              <p className="mt-0.5 text-xs sm:text-sm text-muted-foreground">@{user?.username}</p>
               {user?.phone && (
                 <p className="text-xs text-muted-foreground">📞 {user.phone}</p>
               )}
-              <p className="mt-2 text-sm text-muted-foreground">{t("dash.welcome.sub")}</p>
+              <p className="mt-2 text-xs sm:text-sm text-muted-foreground">{t("dash.welcome.sub")}</p>
             </div>
-            <dl className="grid grid-cols-3 gap-3">
-              <Stat icon={<Clock3 className="size-4" />} label="Open" value={String(open)} />
-              <Stat icon={<CircleCheckBig className="size-4" />} label="Resolved" value={String(resolved)} />
-              <Stat icon={<Activity className="size-4" />} label="Total" value={String(total)} />
+            <dl className="grid grid-cols-3 gap-2 sm:gap-3">
+              <Stat icon={<Clock3 className="size-3.5 sm:size-4" />} label="Open" value={String(open)} />
+              <Stat icon={<CircleCheckBig className="size-3.5 sm:size-4" />} label="Resolved" value={String(resolved)} />
+              <Stat icon={<Activity className="size-3.5 sm:size-4" />} label="Total" value={String(total)} />
             </dl>
           </div>
         </GlassCard>
@@ -330,12 +330,12 @@ function CitizenDashboard() {
 
 function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-background/55 px-4 py-3 text-center">
-      <span className="mx-auto grid size-8 place-items-center rounded-full bg-primary/12 text-primary">
+    <div className="rounded-2xl bg-background/55 px-2.5 py-2.5 sm:px-4 sm:py-3 text-center">
+      <span className="mx-auto grid size-7 sm:size-8 place-items-center rounded-full bg-primary/12 text-primary">
         {icon}
       </span>
-      <dd className="mt-2 font-display text-lg font-extrabold tabular-nums">{value}</dd>
-      <dt className="text-[11px] text-muted-foreground">{label}</dt>
+      <dd className="mt-1.5 font-display text-base sm:text-lg font-extrabold tabular-nums">{value}</dd>
+      <dt className="text-[10px] sm:text-[11px] text-muted-foreground">{label}</dt>
     </div>
   );
 }

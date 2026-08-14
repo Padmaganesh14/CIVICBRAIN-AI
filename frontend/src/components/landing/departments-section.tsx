@@ -8,17 +8,17 @@ export function DepartmentsSection() {
   const { t } = useI18n();
 
   return (
-    <section id="departments" className="scroll-mt-28 px-4 py-24 sm:px-6 sm:py-28">
+    <section id="departments" className="scroll-mt-28 px-3 py-14 sm:px-6 sm:py-24 lg:py-28">
       <SectionHeading
         eyebrow={t("dept.eyebrow")}
         title={t("dept.title")}
         subtitle={t("dept.subtitle")}
       />
-      <ul className="mx-auto mt-14 grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mx-auto mt-8 sm:mt-14 grid max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {departments.map((d, i) => (
           <li key={d.id}>
             <Reveal delay={(i % 3) * 0.07}>
-              <GlassCard className="glow-ring h-full p-6">
+              <GlassCard className="glow-ring h-full p-4.5 sm:p-6">
                 <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
                   <span
                     className={`grid size-14 shrink-0 place-items-center rounded-3xl bg-gradient-to-br ${d.tint} text-primary shadow-[inset_0_1px_0_0_color-mix(in_oklab,white_70%,transparent)]`}

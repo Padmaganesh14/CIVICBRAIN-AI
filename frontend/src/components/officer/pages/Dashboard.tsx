@@ -108,18 +108,18 @@ export default function Dashboard({ data, navigate }: Props) {
   const wardOverview = data?.wardOverview ?? [];
 
   return (
-    <div className="p-6 space-y-6 max-w-screen-xl">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-screen-xl mx-auto min-w-0">
       {/* Welcome Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold" style={{ color: '#0F172A' }}>Good morning, {officerName}.</h1>
-          <p className="mt-1 text-sm" style={{ color: '#64748B' }}>
+          <h1 className="text-xl sm:text-2xl font-bold" style={{ color: '#0F172A' }}>Good morning, {officerName}.</h1>
+          <p className="mt-1 text-xs sm:text-sm" style={{ color: '#64748B' }}>
             Here&apos;s your {municipality} intelligence overview — {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
         </div>
         <button
           onClick={() => navigate('assistant')}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-white transition-all cursor-pointer hover:opacity-90"
+          className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-white transition-all cursor-pointer hover:opacity-90 shrink-0"
           style={{ background: 'linear-gradient(135deg, #4F46E5, #7C3AED)', boxShadow: '0 4px 14px rgba(79,70,229,0.3)' }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="white">
@@ -130,7 +130,7 @@ export default function Dashboard({ data, navigate }: Props) {
       </div>
 
       {/* KPI Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
         {kpiCards.map((k) => (
           <div
             key={k.label}
@@ -151,24 +151,24 @@ export default function Dashboard({ data, navigate }: Props) {
       </div>
 
       {/* Authoritative Budget Banner */}
-      <div className="rounded-2xl p-4 border flex items-center justify-between" style={{ background: '#EEF2FF', borderColor: '#C7D2FE' }}>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-lg">
+      <div className="rounded-2xl p-4 border flex flex-col sm:flex-row sm:items-center justify-between gap-4" style={{ background: '#EEF2FF', borderColor: '#C7D2FE' }}>
+        <div className="flex items-start sm:items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shrink-0">
             📜
           </div>
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-indigo-700">Authoritative Budget Reference</div>
-            <div className="text-sm font-bold text-slate-900 mt-0.5">
+            <div className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">
               Coimbatore Corporation Budget 2023–24 — Total Receipts: {budgetSummary?.totalReceipts || '₹3,018.90 Cr'} | Expenditure: {budgetSummary?.totalExpenditure || '₹3,029.07 Cr'} ({budgetSummary?.surplusDeficit || '₹10.17 Cr Deficit'})
             </div>
-            <div className="text-xs text-indigo-600 mt-0.5">
+            <div className="text-[11px] sm:text-xs text-indigo-600 mt-0.5">
               Source: {budgetSummary?.sourceDocument || 'Cbe_Corp_Budget_23-24_English.pdf'} (Document Page {budgetSummary?.documentPage || 3})
             </div>
           </div>
         </div>
         <button
           onClick={() => navigate('budget')}
-          className="px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition-colors cursor-pointer"
+          className="px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 transition-colors cursor-pointer shrink-0 self-start sm:self-auto"
         >
           View Budget Intelligence →
         </button>
