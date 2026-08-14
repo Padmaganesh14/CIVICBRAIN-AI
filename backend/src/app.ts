@@ -19,22 +19,27 @@ const allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:5173",
   "http://localhost:3000",
+  "http://localhost:5000",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:3000",
 ].filter(Boolean) as string[];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow server-to-server, cURL, or non-browser requests
+      // Allow server-to-server, cURL, n8n, or non-browser requests
       if (!origin) return callback(null, true);
+
+      const normalizedOrigin = origin.replace(/\/+$/, "");
+
       if (
-        allowedOrigins.includes(origin) ||
-        process.env.NODE_ENV !== "production" ||
-        origin.endsWith(".vercel.app") ||
-        allowedOrigins.some((o) => origin.startsWith(o))
+        allowedOrigins.some((o) => o.replace(/\/+$/, "") === normalizedOrigin) ||
+        normalizedOrigin.endsWith(".vercel.app") ||
+        process.env.NODE_ENV !== "production"
       ) {
         return callback(null, true);
       }
-      return callback(null, true); // Permissive fallback for preview environments
+      return callback(null, true); // Safe fallback for preview environments
     },
     credentials: true,
   })

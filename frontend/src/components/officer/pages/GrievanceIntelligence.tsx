@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { apiFetch } from '../../../lib/session'
+import { apiFetch, buildApiUrl } from '../../../lib/session'
 import type { Page, OfficerWorkspaceData } from '../types'
 
 interface Props {
@@ -221,7 +221,7 @@ export default function GrievanceIntelligence({ data, navigate }: Props) {
                       {selectedComplaint.attachments.map((att: any, idx: number) => (
                         <a
                           key={idx}
-                          href={`${import.meta.env["VITE_API_URL"] || 'http://localhost:5000'}${att.url}`}
+                          href={buildApiUrl(att.url)}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border bg-white hover:bg-slate-50 text-xs font-semibold text-indigo-600 transition-colors"

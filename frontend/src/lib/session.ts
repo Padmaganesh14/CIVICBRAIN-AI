@@ -17,7 +17,26 @@ export interface AuthUser {
 
 const TOKEN_KEY = "tn_token";
 const USER_KEY = "tn_user";
-const API_BASE = import.meta.env["VITE_API_URL"] || "http://localhost:5000";
+
+/** Normalizes the API base URL from VITE_API_URL env var, avoiding trailing slashes and /api duplication. */
+export function getApiBaseUrl(): string {
+  const envUrl = import.meta.env["VITE_API_URL"];
+  let raw = envUrl && envUrl.trim() ? envUrl.trim() : "http://localhost:5000";
+  // Strip trailing slashes
+  raw = raw.replace(/\/+$/, "");
+  // If VITE_API_URL ends with /api, strip it to prevent /api/api path duplication
+  if (raw.endsWith("/api")) {
+    raw = raw.slice(0, -4);
+  }
+  return raw;
+}
+
+/** Constructs a clean API or asset URL avoiding double slashes. */
+export function buildApiUrl(path: string): string {
+  const base = getApiBaseUrl();
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${cleanPath}`;
+}
 
 // ─── Token helpers ────────────────────────────────────────────────────────────
 
@@ -64,13 +83,15 @@ export async function apiFetch(
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
+  const targetUrl = buildApiUrl(path);
+
   // Remove Content-Type for FormData (browser sets it with boundary automatically)
   if (options.body instanceof FormData) {
     const { "Content-Type": _removed, ...rest } = headers;
-    return fetch(`${API_BASE}${path}`, { ...options, headers: rest });
+    return fetch(targetUrl, { ...options, headers: rest });
   }
 
-  return fetch(`${API_BASE}${path}`, { ...options, headers });
+  return fetch(targetUrl, { ...options, headers });
 }
 
 // ─── Auth actions ─────────────────────────────────────────────────────────────
